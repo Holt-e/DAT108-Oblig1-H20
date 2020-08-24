@@ -26,15 +26,12 @@ public class Oppgave1 {
                 String input = JOptionPane.showInputDialog("Skriv inn din melding, quit for å slutte",stop);
                 System.out.println(input);
 
-                if (input==null)
-                {
-                        //Error generated here
-                        System.out.println("Du har trykket på Cancel");
+                if(input == null){
 
+                    //Error generated here
+                    System.out.println("Du har trykket på Cancel");
                     requestStop();
                 }
-
-
             if(input.equals(stop)){
                 requestStop();
                 }
