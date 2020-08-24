@@ -1,15 +1,23 @@
 import javax.swing.JOptionPane;
 public class Oppgave1 {
 
-    private String btnString1 = "Ok";
-    private String btnString2 = "Cancel";
-    public static volatile boolean running = true;
 
     public static class RunnableThread implements Runnable {
+
+        private static boolean stopping = false;
+
+        public synchronized void requestStop(){
+            this.stopping = true;
+        }
+
+        public synchronized boolean isStoppingRequesting(){
+            return stopping;
+        }
+
         @Override
         public void run() {
 
-            while(running) {
+            while(!stopping) {
                 try{
                     Thread.sleep(3000);
                 } catch (InterruptedException e){}
@@ -17,15 +25,21 @@ public class Oppgave1 {
                 String stop = "quit";
                 String input = JOptionPane.showInputDialog("Skriv inn din melding, quit for å slutte",stop);
                 System.out.println(input);
+
+                if (input==null)
+                {
+                        //Error generated here
+                        System.out.println("Du har trykket på Cancel");
+
+                    requestStop();
+                }
+
+
             if(input.equals(stop)){
-                stopThread();
+                requestStop();
                 }
             }
         }
 
-    }
-
-    public static void stopThread(){
-      boolean running = false;
     }
 }
