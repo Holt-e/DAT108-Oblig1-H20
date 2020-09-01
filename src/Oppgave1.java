@@ -1,17 +1,16 @@
 import javax.swing.JOptionPane;
+
+
+
 public class Oppgave1 {
 
 
-    public static class RunnableThread implements Runnable {
+    public static class Oppgave1Thread implements Runnable {
 
         private static boolean stopping = false;
 
         public synchronized void requestStop(){
             this.stopping = true;
-        }
-
-        public synchronized boolean isStoppingRequesting(){
-            return stopping;
         }
 
         @Override
