@@ -5,6 +5,11 @@ import java.util.LinkedList;
 import java.util.Random;
 
 
+//TODO: Fikse teller, slik at den teller +1 og ikke *1
+//TODO: Fikse slik at servitøren tar med seg burger
+//TODO: Fikse kokk2, kokk3 og serivtør 2
+
+
 public class oppgave3 {
 	
 	private static BlockingQueue<Integer> queue = new ArrayBlockingQueue<Integer>(4);
