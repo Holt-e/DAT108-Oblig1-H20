@@ -45,10 +45,12 @@ public class oppgave3 {
 			Random random = new Random();
 			
 			while(true) {
-				queue.put(random.nextInt(6));
+				Thread.sleep(rand);
+				int laget = ++antallburgere;
+				queue.put(laget);
 				
 				burgerListe.add(antallburgere++);
-				System.out.println("Kokk1 legger på hamburger" + " >> " + burgerListe);
+				System.out.println("Kokk1 legger på hamburger " + laget + " >> " + burgerListe);
 			}
 		}
 		
