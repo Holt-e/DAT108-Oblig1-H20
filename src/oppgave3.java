@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 
-//TODO: Fikse teller, slik at den teller +1 og ikke *1
+//TODO: Fikse teller, slik at den teller +1 og ikke *2
 //TODO: Fikse slik at servitøren tar med seg burger
 //TODO: Fikse kokk2, kokk3 og serivtør 2
 
@@ -47,7 +47,6 @@ public class oppgave3 {
 	}
 	
 		private static void kokk1() throws InterruptedException {
-			Random random = new Random();
 			
 			while(true) {
 				Thread.sleep(rand);
@@ -64,11 +63,12 @@ public class oppgave3 {
 			
 			while(true) {
 				Thread.sleep(rand);
-				
-					Integer value = queue.take();
+					
+					int servere = ;
+					queue.take();
 					
 					fjernburger = burgerListe.remove(antallburgere--);
-					System.out.println("Servitor1 tar av hamburger " + value + " >> " + burgerListe);
+					System.out.println("Servitor1 tar av hamburger " + servere + " >> " + burgerListe);
 				}
 			}
 		}
