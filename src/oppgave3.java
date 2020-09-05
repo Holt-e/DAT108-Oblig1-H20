@@ -1,74 +1,73 @@
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.LinkedList;
-import java.util.Random;
-
-
-//TODO: Fikse teller, slik at den teller +1 og ikke *2
-//TODO: Fikse slik at servitøren tar med seg burger
-//TODO: Fikse kokk2, kokk3 og serivtør 2
 
 
 public class oppgave3 {
 	
-	private static BlockingQueue<Integer> queue = new ArrayBlockingQueue<Integer>(4);
-	public static LinkedList<Integer> burgerListe = new LinkedList<>();
-	public static int rand = ThreadLocalRandom.current().nextInt(2000,6000);
-	public static int antallburgere = 0;
-	public static int fjernburger;
+	public static void main(String args[]) {
+	    BlockingQueue<Integer> sharedQueue = new LinkedBlockingQueue<Integer>(5);
+	     
+		 Thread kokk1 = new Thread(new Kokk(sharedQueue,1), "Kokk 1");
+		 Thread kokk2 = new Thread(new Kokk(sharedQueue,1), "Kokk 2");
+		 Thread kokk3 = new Thread(new Kokk(sharedQueue,1), "Kokk 3");
+		 Thread servitor1 = new Thread(new Servitor(sharedQueue,1), "Servitør 1");
+		 Thread servitor2 = new Thread(new Servitor(sharedQueue,1), "Setvitør 2");
 		
-	public static void main(String[] args) throws InterruptedException {
-		Thread t1 = new Thread(new Runnable() {
-			public void run() {
-				try {
-					kokk1();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		Thread t2 = new Thread(new Runnable() {
-			public void run() {
-				try {
-					servitor();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		t1.start();
-		t2.start();
-		
-		t1.join();
-		t2.join();
+		 kokk1.start();
+		 kokk2.start();
+		 kokk3.start();
+		 servitor1.start();
+		 servitor2.start();
+		    }
 	}
-	
-		private static void kokk1() throws InterruptedException {
-			
-			while(true) {
-				Thread.sleep(rand);
-				int laget = ++antallburgere;
-				queue.put(laget);
-				
-				burgerListe.add(antallburgere++);
-				System.out.println("Kokk1 legger på hamburger " + laget + " >> " + burgerListe);
-			}
-		}
-		
-		
-		private static void servitor() throws InterruptedException {
-			
-			while(true) {
-				Thread.sleep(rand);
-					
-					int servere = ;
-					queue.take();
-					
-					fjernburger = burgerListe.remove(antallburgere--);
-					System.out.println("Servitor1 tar av hamburger " + servere + " >> " + burgerListe);
-				}
-			}
-		}
+
+	class Kokk implements Runnable {
+
+	    private final BlockingQueue<Integer> sharedQueue;
+	    public static LinkedList<Integer> burgerListe = new LinkedList<>();
+	    public static int rand = ThreadLocalRandom.current().nextInt(2000,3000);
+
+	    public Kokk(BlockingQueue<Integer> sharedQueue,int threadNo) {
+	        this.sharedQueue = sharedQueue;
+	    }
+
+	    @Override
+	    public void run() {
+	        for(int i=1; i<= 10; i++){
+	            try {
+	            	Thread.sleep(rand);
+	                int number = i;
+	                sharedQueue.put(number);
+	                System.out.println(Thread.currentThread().getName() + " legger på hamburger " + number + " >> " + sharedQueue);    
+	            } catch (Exception err) {
+	                err.printStackTrace();
+	            }
+	        }
+	    }
+	}
+
+	class Servitor implements Runnable{
+
+	    private final BlockingQueue<Integer> sharedQueue;
+	    public static LinkedList<Integer> burgerListe = new LinkedList<>();
+	    public static int rand = ThreadLocalRandom.current().nextInt(2000,6000);
+	    
+	    public Servitor(BlockingQueue<Integer> sharedQueue,int threadNo) {
+	        this.sharedQueue = sharedQueue;
+	    }
+
+	    @Override
+	    public void run() {
+	        while(true){
+	            try {
+	            	Thread.sleep(rand);
+	                int num = sharedQueue.take();
+	                System.out.println(Thread.currentThread().getName() + " tar av hamburger "+ num + " >> " + sharedQueue);
+	            } catch (Exception err) {
+	               err.printStackTrace();
+	            }
+	        }
+	    }   
+	}
