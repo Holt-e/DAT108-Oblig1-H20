@@ -20,54 +20,54 @@ public class oppgave3 {
 		 kokk3.start();
 		 servitor1.start();
 		 servitor2.start();
-		    }
-	}
+		 }
+}
 
-	class Kokk implements Runnable {
+class Kokk implements Runnable {
 
-	    private final BlockingQueue<Integer> sharedQueue;
-	    public static LinkedList<Integer> burgerListe = new LinkedList<>();
-	    public static int rand = ThreadLocalRandom.current().nextInt(2000,3000);
+    private final BlockingQueue<Integer> sharedQueue;
+    public static LinkedList<Integer> burgerListe = new LinkedList<>();
+    public static int rand = ThreadLocalRandom.current().nextInt(2000,3000);
 
-	    public Kokk(BlockingQueue<Integer> sharedQueue,int threadNo) {
-	        this.sharedQueue = sharedQueue;
-	    }
+    public Kokk(BlockingQueue<Integer> sharedQueue,int threadNo) {
+        this.sharedQueue = sharedQueue;
+    }
 
-	    @Override
-	    public void run() {
-	        for(int i=1; i<= 10; i++){
-	            try {
-	            	Thread.sleep(rand);
-	                int number = i;
-	                sharedQueue.put(number);
-	                System.out.println(Thread.currentThread().getName() + " legger på hamburger " + number + " >> " + sharedQueue);    
-	            } catch (Exception err) {
-	                err.printStackTrace();
-	            }
-	        }
-	    }
-	}
+    @Override
+    public void run() {
+        for(int i=1; i<= 10; i++){
+            try {
+            	Thread.sleep(rand);
+                int number = i;
+                sharedQueue.put(number);
+                System.out.println(Thread.currentThread().getName() + " legger på hamburger " + number + " >> " + sharedQueue);    
+            } catch (Exception err) {
+                err.printStackTrace();
+            }
+        }
+    }
+}
 
-	class Servitor implements Runnable{
+class Servitor implements Runnable{
 
-	    private final BlockingQueue<Integer> sharedQueue;
-	    public static LinkedList<Integer> burgerListe = new LinkedList<>();
-	    public static int rand = ThreadLocalRandom.current().nextInt(2000,6000);
-	    
-	    public Servitor(BlockingQueue<Integer> sharedQueue,int threadNo) {
-	        this.sharedQueue = sharedQueue;
-	    }
+    private final BlockingQueue<Integer> sharedQueue;
+    public static LinkedList<Integer> burgerListe = new LinkedList<>();
+    public static int rand = ThreadLocalRandom.current().nextInt(2000,6000);
+    
+    public Servitor(BlockingQueue<Integer> sharedQueue,int threadNo) {
+        this.sharedQueue = sharedQueue;
+    }
 
-	    @Override
-	    public void run() {
-	        while(true){
-	            try {
-	            	Thread.sleep(rand);
-	                int num = sharedQueue.take();
-	                System.out.println(Thread.currentThread().getName() + " tar av hamburger "+ num + " >> " + sharedQueue);
-	            } catch (Exception err) {
-	               err.printStackTrace();
-	            }
-	        }
-	    }   
-	}
+    @Override
+    public void run() {
+        while(true){
+            try {
+            	Thread.sleep(rand);
+                int num = sharedQueue.take();
+                System.out.println(Thread.currentThread().getName() + " tar av hamburger "+ num + " >> " + sharedQueue);
+            } catch (Exception err) {
+               err.printStackTrace();
+            }
+        }
+    }   
+}
