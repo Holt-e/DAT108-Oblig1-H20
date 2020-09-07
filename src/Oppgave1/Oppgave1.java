@@ -1,3 +1,5 @@
+package Oppgave1;
+
 import javax.swing.JOptionPane;
 
 
@@ -31,8 +33,8 @@ public class Oppgave1 {
                     System.out.println("Du har trykket på Cancel");
                     requestStop();
                 }
-            if(input.equals(stop)){
-                requestStop();
+                if(input.equals(stop)){
+                    requestStop();
                 }
             }
         }
