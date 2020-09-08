@@ -14,7 +14,7 @@ public class BelteBand {
             synchronized (this) {
 
                 if (burgerListe.size() >= LIMIT) {
-                    System.out.printf("%s er klar med hamburger, men belteband er full. Venter!\n", kokk);
+                    System.out.printf("### "+Thread.currentThread().getName() + " er klar med hamburger, men belteband er full. Venter!" +" ###\n");
                     try {
                         wait();
                     } catch (InterruptedException e) {
@@ -22,7 +22,7 @@ public class BelteBand {
                     }
                 } else {
                     notify();
-                    System.out.printf("%s legger pa burger%s => %s\n", kokk, burger, burgerListe);
+                    System.out.printf("### "+Thread.currentThread().getName()+ " legger pa burger" + burger + " => "+ burgerListe+ " ###\n");
                     burgerListe.add(burger);
 
                 }
@@ -33,7 +33,7 @@ public class BelteBand {
 
             synchronized (this) {
                 if (burgerListe.size() == 0) {
-                    System.out.printf("%s vil ta en hamburger, men rutsjebanen er tom. Venter!\n", servitor);
+                    System.out.printf("### "+Thread.currentThread().getName() + " vil ta en hamburger, men beltebandet er tom. Venter!" +" ###\n");
                     try {
                         wait();
                     } catch (InterruptedException e) {
@@ -42,7 +42,7 @@ public class BelteBand {
                 } else {
                     notify();
                     Burger burger = burgerListe.remove();
-                    System.out.printf("%s tar av burgere%s <= %s\n", servitor, burger, burgerListe);
+                    System.out.printf("### "+ Thread.currentThread().getName()+" tar av burgere" +burger + " <= " + burgerListe+ " ###\n");
 
                 }
             }
