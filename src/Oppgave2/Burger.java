@@ -4,12 +4,12 @@ public class Burger {
     private static int burger;
     private final int id;
 
-    public Burger(){
+    public Burger() {
         id = burger++;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("(%s)", id);
     }
 }

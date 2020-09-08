@@ -23,7 +23,7 @@ class Kokk extends Thread {
             }
 
             while (burgerListe.size() >= LIMIT) {
-                System.out.println("### " + Thread.currentThread().getName() + " er klar med hamburger, men belteband er full. Venter!" + " ###");
+                System.out.println("### " + Thread.currentThread().getName() + " er klar med burger, men belteband er full. Venter!" + " ###");
                 try {
                     Thread.sleep(rand);
                 } catch (InterruptedException e) {
@@ -37,7 +37,7 @@ class Kokk extends Thread {
                 e.printStackTrace();
             }
 
-            System.out.println("### " + Thread.currentThread().getName() + " legger pa " + "hamburger (" + burger + ")" + " => " + burgerListe + " ###");
+            System.out.println("### " + Thread.currentThread().getName() + " legger pa " + "burger (" + burger + ")" + " => " + burgerListe.toString() + " ###");
             burger++;
         }
     }

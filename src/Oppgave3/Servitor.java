@@ -16,7 +16,7 @@ class Servitor extends Thread {
     public void run() {
         while (true) {
             while (burgerListe.size() == 0) {
-                System.out.println("### " + Thread.currentThread().getName() + " vil ta en hamburger, men belteband er tom. Venter!" + " ###");
+                System.out.println("### " + Thread.currentThread().getName() + " vil ta en burger, men belteband er tom. Venter!" + " ###");
                 try {
                     Thread.sleep(rand);
                 } catch (InterruptedException e) {
@@ -26,7 +26,7 @@ class Servitor extends Thread {
 
             try {
                 int num = burgerListe.take();
-                System.out.println(Thread.currentThread().getName() + " tar av hamburger " + num + " >> " + burgerListe + " ###");
+                System.out.println(Thread.currentThread().getName() + " tar av hamburger burger (" + num + ") >> " + burgerListe.toString() + " ###");
                 Thread.sleep(rand);
             } catch (InterruptedException e1) {
             }
